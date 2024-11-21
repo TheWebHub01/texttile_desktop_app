@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firedart/firedart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:textile_desktop_app/constants/texts/text.dart';
 import 'package:textile_desktop_app/utils/colors.dart';
@@ -44,6 +47,75 @@ class _MasterMenuDetailsScreenState extends State<MasterMenuDetailsScreen> {
   TextEditingController cstNumberController = TextEditingController();
   TextEditingController adharNumberController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  String? userId;
+  getuser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('user_id');
+    });
+  }
+
+  Future<void> insertData() async {
+    try {
+      // Create a map with all form field data
+      Map<String, dynamic> formData = {
+        "account_name": accountnameController.text,
+        "name": nameController.text,
+        "assesee_type": acsesstypeController.text,
+        "address": addressController.text,
+        "alt_a": altAController.text,
+        "alt_c": altController.text,
+        "city": cityController.text,
+        "group_name": groupnameController.text,
+        "area_name": areanameController.text,
+        "broker_code": brokerCodeController.text,
+        "phone_number": phonenumberController.text,
+        "owner_name": ownerController.text,
+        "extra_details": extraDetailsController.text,
+        "tin_number": tinController.text,
+        "ecc_number": eccController.text,
+        "egst_number": egstController.text,
+        "pan_number": pannumberController.text,
+        "gst_number": gstController.text,
+        "interest_rate": intRateController.text,
+        "commission": comisnController.text,
+        "credit_limit": creditLimitController.text,
+        "bill_due_day": billDuedayController.text,
+        "limit_days": limitDaysController.text,
+        "tds_rate": tdsRateController.text,
+        "tds_section": tdssectionController.text,
+        "sms_mobile": smsMoController.text,
+        "email": emailController.text,
+        "extra": extraController.text,
+        "cst_number": cstNumberController.text,
+        "aadhar_number": adharNumberController.text,
+        "date": dateController.text,
+      };
+
+      // Insert data into Firebase under the user's collection
+      await FirebaseFirestore.instance
+          .collection("Data")
+          .doc(userId)
+          .collection("AccountManager")
+          .add(formData);
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Data successfully inserted!")),
+      );
+    } catch (error) {
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error inserting data: $error")),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    getuser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,6 +275,25 @@ class _MasterMenuDetailsScreenState extends State<MasterMenuDetailsScreen> {
                 ),
               ),
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    insertData();
+                  },
+                  child: Text("Insert Data")),
+              SizedBox(
+                width: 15,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Close")),
+            ],
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
