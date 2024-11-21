@@ -132,9 +132,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     text: "Munjapara Fabrics",
                     style: TextStyle(color: appColors.blueColor)),
                 const Spacer(),
-                customText(
-                    text: "Register Id-[35M102]",
-                    style: TextStyle(color: appColors.whiteColor)),
+                const Spacer(),
+                GestureDetector(
+                    onTap: () {},
+                    child: SvgPicture.asset("assets/svg/more.svg")),
               ],
             ),
           ),
