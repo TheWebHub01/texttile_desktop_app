@@ -5,6 +5,7 @@ import 'package:firedart/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textile_desktop_app/screens/Authentication/register_screen.dart';
+import 'package:textile_desktop_app/screens/Master_Menu_Details/master_menu_details.dart';
 import 'package:textile_desktop_app/screens/home/home_screen.dart';
 import 'package:textile_desktop_app/utils/colors.dart';
 import 'package:sizer/sizer.dart';
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: appColors.blueColor),
           useMaterial3: true,
         ),
-        home: isLoggedIn ? const HomeScreen() : const RegisterScreen(),
+        // home: isLoggedIn ? const HomeScreen() : const RegisterScreen(),
+        home: const MasterMenuDetailsScreen(),
       ),
     );
   }

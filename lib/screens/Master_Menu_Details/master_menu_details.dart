@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:textile_desktop_app/constants/footer_data.dart';
 import 'package:textile_desktop_app/constants/texts/text.dart';
 import 'package:textile_desktop_app/utils/colors.dart';
 
@@ -63,6 +64,9 @@ class _MasterMenuDetailsScreenState extends State<MasterMenuDetailsScreen> {
                     text: "A/C Year 01-04-2024 To 31-03-2025",
                     style: TextStyle(color: appColors.whiteColor)),
                 const Spacer(),
+                SizedBox(
+                  width: 10.w,
+                ),
                 customText(
                     text: "Register Id-[35M102]",
                     style: TextStyle(color: appColors.whiteColor)),
@@ -70,10 +74,9 @@ class _MasterMenuDetailsScreenState extends State<MasterMenuDetailsScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 15.w),
+            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
             color: const Color(0xFFF5FBFF),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 customText(
                     text: "Service will expire in 28 days 30-09-2024",
@@ -83,9 +86,7 @@ class _MasterMenuDetailsScreenState extends State<MasterMenuDetailsScreen> {
                     text: "Munjapara Fabrics",
                     style: TextStyle(color: appColors.blueColor)),
                 const Spacer(),
-                SizedBox(
-                  width: 15.w,
-                ),
+                const Spacer(),
                 GestureDetector(
                     onTap: () {},
                     child: SvgPicture.asset("assets/svg/more.svg")),
@@ -105,9 +106,12 @@ class _MasterMenuDetailsScreenState extends State<MasterMenuDetailsScreen> {
                     text: "Account Master",
                     style: TextStyle(color: appColors.whiteColor)),
                 const Spacer(),
+                SizedBox(
+                  width: 15.w,
+                ),
                 customText(
-                    text: "Register Id-[35M102]",
-                    style: TextStyle(color: appColors.blueColor)),
+                    text: "Weaving",
+                    style: TextStyle(color: appColors.whiteColor)),
               ],
             ),
           ),
@@ -209,12 +213,10 @@ class _MasterMenuDetailsScreenState extends State<MasterMenuDetailsScreen> {
             color: const Color(0xFFF5FBFF),
             child: LayoutBuilder(
               builder: (context, constraints) {
-                bool isNarrowScreen =
-                    constraints.maxWidth < 800; // Define breakpoint
+                bool isNarrowScreen = constraints.maxWidth < 800;
 
                 return isNarrowScreen
                     ? Column(
-                        // Use Column for smaller screens
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -223,16 +225,20 @@ class _MasterMenuDetailsScreenState extends State<MasterMenuDetailsScreen> {
                           footerData(
                               "assets/svg/email.svg", "thewebhub@gmail.com"),
                           const SizedBox(height: 10),
+                          footerData(
+                              "assets/svg/telegram.svg", r"\FAS24\MFA2425\"),
+                          const SizedBox(height: 10),
                           footerData("assets/svg/call.svg", "+918320672006"),
                         ],
                       )
                     : Row(
-                        // Use Row for wider screens
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           footerData("assets/svg/wp.svg", "+918320672006"),
                           footerData(
                               "assets/svg/email.svg", "thewebhub@gmail.com"),
+                          footerData(
+                              "assets/svg/telegram.svg", r"\FAS24\MFA2425\"),
                           footerData("assets/svg/call.svg", "+918320672006"),
                         ],
                       );
@@ -242,53 +248,30 @@ class _MasterMenuDetailsScreenState extends State<MasterMenuDetailsScreen> {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
             color: appColors.blueColor,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                customText(
-                    text:
-                        "410,Kedar Business Center, Dabholi to Bapasitaram Road, Katargam, Surat. 395004",
-                    style: TextStyle(color: appColors.whiteColor)),
-              ],
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                bool isNarrowScreen = constraints.maxWidth < 800;
+
+                return Row(
+                  mainAxisAlignment: isNarrowScreen
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        "410, Kedar Business Center, Dabholi to Bapasitaram Road, Katargam, Surat. 395004",
+                        style: TextStyle(
+                          color: appColors.whiteColor,
+                          fontSize: isNarrowScreen ? 12 : 16,
+                        ),
+                        textAlign:
+                            isNarrowScreen ? TextAlign.start : TextAlign.center,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Row footerData(String imagePath, String title) {
-    return Row(
-      children: [
-        SvgPicture.asset(
-          imagePath,
-          height: 20,
-          width: 20,
-        ),
-        SizedBox(
-          width: 5,
-        ),
-        customText(text: title, style: TextStyle(color: appColors.blueColor)),
-      ],
-    );
-  }
-
-  Widget _buildInfoRow(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.w),
-      color: const Color(0xFFF5FBFF),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          customText(
-            text: "Service will expire in 28 days 30-09-2024",
-          ),
-          customText(
-            text: "Munjapara Fabrics",
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: SvgPicture.asset("assets/svg/more.svg", width: 5.w),
           ),
         ],
       ),
