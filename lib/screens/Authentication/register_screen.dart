@@ -1,4 +1,6 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firedart/auth/firebase_auth.dart';
+import 'package:firedart/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +21,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool checkBoxValue = false;
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -82,6 +85,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
   //     );
   //   }
   // }
+  getuser() async {
+    var map = await Firestore.instance.collection("users").get();
+    print("== map ==>${map}");
+  }
+
+  login() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    try {
+      var user = await auth.signIn(
+        _emailController.text,
+        _passwordController.text,
+      );
+      print('User signed in: ${user.email}');
+      print('User signed in: ${user.id}');
+
+      // Store the user email and ID in SharedPreferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user_email', user.email!);
+      await prefs.setString('user_id', user.id!);
+
+      // Navigate to the home screen after successful login
+      await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    } catch (e) {
+      print('Error during login: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    getuser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,15 +231,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             Expanded(
                                 child: GestureDetector(
                               onTap: () async {
-                                // await pl.show();
-                                // await loginUser(_emailController.text,
-                                //     _passwordController.text, context);
-                                // await pl.hide();
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => HomeScreen(),
-                                    ));
+                                if (_formKey.currentState!.validate()) {
+                                  await pl.show();
+                                  await login();
+                                  await pl.hide();
+                                }
+                                // Navigator.pushReplacement(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //       builder: (context) => HomeScreen(),
+                                //     ));
                               },
                               child: Container(
                                 padding:
