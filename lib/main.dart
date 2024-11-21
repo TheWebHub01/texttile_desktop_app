@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:textile_desktop_app/screens/Authentication/register_screen.dart';
+import 'package:textile_desktop_app/screens/Master_Menu_Details/master_menu_details.dart';
 import 'package:textile_desktop_app/utils/colors.dart';
 
 const apiKey = 'AIzaSyAI599y1m2ZaNWd12EJQYT_3zB8cUHO8Ps';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: appColors.blueColor),
           useMaterial3: true,
         ),
-        home: const RegisterScreen(),
+        home: const MasterMenuDetailsScreen(),
       ),
     );
   }
