@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:textile_desktop_app/constants/footer_data.dart';
 import 'package:textile_desktop_app/constants/texts/text.dart';
 import 'package:textile_desktop_app/screens/Account_Master_Details/account_master_details_screen.dart';
+import 'package:textile_desktop_app/screens/Master_Menu_Details/master_menu_details.dart';
 import 'package:textile_desktop_app/utils/colors.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -393,6 +394,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         "${menuList[i]['subMenu'][j]['name']} ($value) Report")));
                                                   }
                                                 });
+                                              } else {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MasterMenuDetailsScreen()));
                                               }
                                             },
                                             child: Transform.translate(
