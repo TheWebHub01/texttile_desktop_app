@@ -22,9 +22,9 @@ void main() async {
           appId: '1:899109364547:web:a8a2ccde4a25368d43c5f6',
           messagingSenderId: '899109364547',
           projectId: projectId));
-  // FirebaseAuth.initialize(
-  //     'AIzaSyAI599y1m2ZaNWd12EJQYT_3zB8cUHO8Ps', VolatileStore());
-  // Firestore.initialize(projectId);
+  FirebaseAuth.initialize(
+      'AIzaSyAI599y1m2ZaNWd12EJQYT_3zB8cUHO8Ps', VolatileStore());
+  Firestore.initialize(projectId);
 
   // // Check if user is already logged in
   SharedPreferences prefs = await SharedPreferences.getInstance();

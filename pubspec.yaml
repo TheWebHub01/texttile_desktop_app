@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.14
   sizer: ^3.0.4
-  firebase_core: ^3.8.0
+  # firebase_core: ^3.8.0
   shared_preferences: ^2.3.3
   firedart: ^0.9.8
   cloud_firestore: ^5.5.0
@@ -52,6 +52,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  firebase_core: ^3.8.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
