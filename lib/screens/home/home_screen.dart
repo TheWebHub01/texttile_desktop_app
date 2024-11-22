@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:textile_desktop_app/constants/footer_data.dart';
 import 'package:textile_desktop_app/constants/texts/text.dart';
 import 'package:textile_desktop_app/screens/Account_Master_Details/account_master_details_screen.dart';
 import 'package:textile_desktop_app/screens/Master_Menu_Details/master_menu_details.dart';
@@ -431,37 +432,67 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
             color: const Color(0xFFF5FBFF),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                customText(
-                    text: "Service will expire in 28 days 30-09-2024",
-                    style: TextStyle(color: appColors.blueColor)),
-                customText(
-                    text: "Munjapara Fabrics",
-                    style: TextStyle(color: appColors.blueColor)),
-                customText(
-                    text: "Register Id-[35M102]",
-                    style: TextStyle(color: appColors.whiteColor)),
-              ],
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                bool isNarrowScreen = constraints.maxWidth < 800;
+
+                return isNarrowScreen
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          footerData("assets/svg/wp.svg", "+918320672006"),
+                          const SizedBox(height: 10),
+                          footerData(
+                              "assets/svg/email.svg", "thewebhub@gmail.com"),
+                          const SizedBox(height: 10),
+                          footerData(
+                              "assets/svg/telegram.svg", r"\FAS24\MFA2425\"),
+                          const SizedBox(height: 10),
+                          footerData("assets/svg/call.svg", "+918320672006"),
+                        ],
+                      )
+                    : Row(
+                        // Use Row for wider screens
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          footerData("assets/svg/wp.svg", "+918320672006"),
+                          footerData(
+                              "assets/svg/email.svg", "thewebhub@gmail.com"),
+                          footerData(
+                              "assets/svg/telegram.svg", r"\FAS24\MFA2425\"),
+                          footerData("assets/svg/call.svg", "+918320672006"),
+                        ],
+                      );
+              },
             ),
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
             color: appColors.blueColor,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                customText(
-                    text: "Ap+Eb+Pd [Single]",
-                    style: TextStyle(color: appColors.whiteColor)),
-                customText(
-                    text: "Account Master",
-                    style: TextStyle(color: appColors.whiteColor)),
-                customText(
-                    text: "Register Id-[35M102]",
-                    style: TextStyle(color: appColors.blueColor)),
-              ],
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                bool isNarrowScreen = constraints.maxWidth < 800;
+
+                return Row(
+                  mainAxisAlignment: isNarrowScreen
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        "410, Kedar Business Center, Dabholi to Bapasitaram Road, Katargam, Surat. 395004",
+                        style: TextStyle(
+                          color: appColors.whiteColor,
+                          fontSize: isNarrowScreen ? 12 : 16,
+                        ),
+                        textAlign:
+                            isNarrowScreen ? TextAlign.start : TextAlign.center,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ],

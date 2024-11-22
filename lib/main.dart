@@ -17,7 +17,7 @@ void main() async {
 
   // Initialize Firebase
   Firebase.initializeApp(
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
           apiKey: apiKey,
           appId: '1:899109364547:web:a8a2ccde4a25368d43c5f6',
           messagingSenderId: '899109364547',
